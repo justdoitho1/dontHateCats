@@ -23,7 +23,9 @@ const Cats = () => {
 
   const [url, setUrl] = useState("");
   const [disLikeCount, setDisLikeCount] = useState(0);
+  const [warningCount, setWarningCount] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
+  const [warningModalVisible, setWarningModalVisible] = useState(false);
 
   const getImgAPI = () => {
     ajax_get(
@@ -42,14 +44,18 @@ const Cats = () => {
     getImgAPI();
   };
 
-  //배열로? 객체로?
+  //질문 메시지
   const afterDislikeMessageObj = {
     1: "고양이를 싫어하세요?",
-    2: "흠... 알겠습니다.",
-    3: "이토록 사랑스럽고 아름답고 골져스한 고양이가 정말로 싫으세요?",
-    4: "흠. 그렇군요?",
-    5: "마지막으로 묻습니다. 고양이를 싫어하십니까?",
-    6: "그래도 고양이를 미워하지 말아주세요!",
+    2: "고양이의 효능~ 이토록 사랑스럽고 아름답고 골져스한 고양이가 정말로 싫으세요?",
+    3: "마지막으로 묻습니다. 고양이를 싫어하십니까?",
+  };
+
+  //경고 메시지
+  const warningMessageObj = {
+    1: "흠... 알겠습니다.",
+    2: "흠. 그렇군요?",
+    3: "그래도 고양이를 미워하지 말아주세요!",
   };
 
   /**
@@ -64,28 +70,30 @@ const Cats = () => {
    */
   //싫어요 버튼 누를 때, 경고 메시지를 보여주기 위해 disLikeCount+1
 
-  //css : 좋아요든 싫어요든 클릭하면 fade out 애니메이션
+  // todo css : 좋아요든 싫어요든 클릭하면 fade out 애니메이션
+  // todo   싫어요 버튼을 세 번 이상 눌렀을 때 어떻게 할 것인가
+  // ROUTE 처리
+  // 컴포넌트 구분 !
 
+  //싫어요 버튼 클릭 시
   const disLikeClickHandler = () => {
     setDisLikeCount(disLikeCount + 1);
-    console.log(disLikeCount);
     setModalVisible(true);
-
-    if (disLikeCount > 6) {
-      setDisLikeCount(0);
-      setModalVisible(false);
-    }
   };
 
+  //질문 모달 Y 클릭 시
   const modalOkBtnHandler = () => {
-    setDisLikeCount(disLikeCount + 1);
-    // getImgAPI();
-    //  setModalVisible(false);
+    setModalVisible(false);
+    setWarningCount(warningCount + 1);
+    getImgAPI();
+    setWarningModalVisible(true);
   };
 
-  //싫어요 버튼을 세 번 이상 눌렀을 때 어떻게 할 것인가
+  //경고 모달 Y 클릭 시
+  const warningModalOkBtnHandler = () => {
+    setWarningModalVisible(false);
+  };
 
-  //싫어요 버튼 누를 때마다 +1씩 함 +1되면 메시지를 보여주고,
   return (
     <>
       {{ url } && <img src={url} alt="cats" width={300} />}
@@ -97,6 +105,14 @@ const Cats = () => {
           {afterDislikeMessageObj[disLikeCount]}
           <button onClick={modalOkBtnHandler}>네</button>
           <button>아니오</button>
+        </div>
+      )}
+      {warningModalVisible && (
+        <div>
+          {warningMessageObj[warningCount]}
+          <button onClick={warningModalOkBtnHandler}>
+            흥! 난 그래도 고양이가 싫어
+          </button>
         </div>
       )}
     </>
