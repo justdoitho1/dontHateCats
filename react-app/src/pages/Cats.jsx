@@ -43,24 +43,44 @@ const Cats = () => {
   };
 
   //배열로? 객체로?
-  const warningMessageObj = {
-    1: "확실합니까?",
-    2: "정말 이 고양이를 싫어하십니까?",
-    3: "마지막으로 묻습니다. 이 고양이를 싫어하십니까?",
+  const afterDislikeMessageObj = {
+    1: "고양이를 싫어하세요?",
+    2: "흠... 알겠습니다.",
+    3: "이토록 사랑스럽고 아름답고 골져스한 고양이가 정말로 싫으세요?",
+    4: "흠. 그렇군요?",
+    5: "마지막으로 묻습니다. 고양이를 싫어하십니까?",
+    6: "그래도 고양이를 미워하지 말아주세요!",
   };
 
+  /**
+   * 싫어요 버튼 로직.
+   * 싫어요 버튼 첫 번째로 누르면, 경고메시지 모달 뜸.
+   * 경고메시지 모달에서 Y 클릭하면, 흠.... 알겠습니다 모달 뜬 뒤 fade out
+   * 싫어요 버튼 두 번째로 누르면, 경고메시지 모달 뜸.
+   * 경고메시지 모달에서 y 클릭하면, 흠. 그렇군요? 모달 뜬 뒤 fade out
+   * 싫어요 버튼 세 번째로 누르면, 마지막으로 묻습니다. 고양이를 싫어하십니까? 경고메시지.
+   * Y 클릭하면 새 페이지로 넘어감.
+   * N 클릭하면 새 페이지로 넘어가지 않음.
+   */
   //싫어요 버튼 누를 때, 경고 메시지를 보여주기 위해 disLikeCount+1
+
+  //css : 좋아요든 싫어요든 클릭하면 fade out 애니메이션
+
   const disLikeClickHandler = () => {
     setDisLikeCount(disLikeCount + 1);
+    console.log(disLikeCount);
     setModalVisible(true);
 
-    if (disLikeCount === 4) {
-      //disLikeCount가 3초과 마지막 페이지 나옴
+    if (disLikeCount > 6) {
+      setDisLikeCount(0);
+      setModalVisible(false);
     }
   };
 
   const modalOkBtnHandler = () => {
-    // setDisLikeCount(10);
+    setDisLikeCount(disLikeCount + 1);
+    // getImgAPI();
+    //  setModalVisible(false);
   };
 
   //싫어요 버튼을 세 번 이상 눌렀을 때 어떻게 할 것인가
@@ -74,7 +94,7 @@ const Cats = () => {
       <button onClick={disLikeClickHandler}>싫어요</button>
       {modalVisible && (
         <div>
-          {warningMessageObj[disLikeCount]}
+          {afterDislikeMessageObj[disLikeCount]}
           <button onClick={modalOkBtnHandler}>네</button>
           <button>아니오</button>
         </div>
