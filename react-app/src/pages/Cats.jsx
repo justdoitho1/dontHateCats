@@ -1,26 +1,7 @@
 import { useState, useEffect } from "react";
-//import { ajax_get } from "../api/Api";
+import ajax_get from "../api/Api";
 
 const Cats = () => {
-  const ajax_get = (url, callback) => {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
-      if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-        console.log("responseText:" + xmlhttp.responseText);
-        try {
-          var data = JSON.parse(xmlhttp.responseText);
-        } catch (err) {
-          console.log(err.message + " in " + xmlhttp.responseText);
-          return;
-        }
-        callback(data);
-      }
-    };
-
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();
-  };
-
   const [url, setUrl] = useState("");
   const [disLikeCount, setDisLikeCount] = useState(0);
   const [warningCount, setWarningCount] = useState(0);
