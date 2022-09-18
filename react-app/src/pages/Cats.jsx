@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import ajax_get from "../api/Api";
+import styled from "styled-components";
 
 const Cats = () => {
   const [url, setUrl] = useState("");
@@ -77,10 +78,13 @@ const Cats = () => {
 
   return (
     <>
-      {{ url } && <img src={url} alt="cats" width={300} />}
-      <br />
-      <button onClick={likeClickHandler}>좋아요</button>
-      <button onClick={disLikeClickHandler}>싫어요</button>
+      <CatsImgBox>
+        {{ url } && <CatsImg src={url} alt="cats" width={300} />}
+      </CatsImgBox>
+      <BtnBox>
+        <LikeBtn onClick={likeClickHandler}>좋아요</LikeBtn>
+        <DislikeBtn onClick={disLikeClickHandler}>싫어요</DislikeBtn>
+      </BtnBox>
       {modalVisible && (
         <div>
           {afterDislikeMessageObj[disLikeCount]}
@@ -100,4 +104,33 @@ const Cats = () => {
   );
 };
 
+
+
+const CatsImgBox = styled.div`
+  margin-top : 15vh;
+  text-align: center;
+  height : 40vh;
+  overflow : hidden;
+  background-color : skyblue;
+`;
+
+const CatsImg = styled.img`
+  width: 100%;
+  height : auto;
+`;
+
+const BtnBox = styled.div`
+  text-align: center;
+`;
+
+const LikeBtn = styled.button`
+  background-color : red;
+  border: none;
+  margin-right: 20px;
+`;
+
+const DislikeBtn = styled.button`
+  background-color : gray;
+  border: none;
+`;
 export default Cats;
