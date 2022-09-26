@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import ajax_get from "../api/Api";
 import styled from "styled-components";
 
+/**
+ * todo : 모달 버튼 CSS, 로직 추가, 길이에 따른 위치 조정(미정), FADE OUT
+ * @returns 
+ */
 const Cats = () => {
   const [url, setUrl] = useState("");
   const [disLikeCount, setDisLikeCount] = useState(0);
@@ -52,11 +56,6 @@ const Cats = () => {
    */
   //싫어요 버튼 누를 때, 경고 메시지를 보여주기 위해 disLikeCount+1
 
-  // todo css : 좋아요든 싫어요든 클릭하면 fade out 애니메이션
-  // todo   싫어요 버튼을 세 번 이상 눌렀을 때 어떻게 할 것인가
-  // ROUTE 처리
-  // 컴포넌트 구분 !
-
   //싫어요 버튼 클릭 시
   const disLikeClickHandler = () => {
     setDisLikeCount(disLikeCount + 1);
@@ -78,6 +77,11 @@ const Cats = () => {
 
   return (
     <>
+    <Main>
+      <LogoBox>
+        <h1>Don't Hate Cats</h1>
+        <LogoImg></LogoImg>
+      </LogoBox>
       <CatsImgBox>
         {{ url } && <CatsImg src={url} alt="cats" width={300} />}
       </CatsImgBox>
@@ -86,30 +90,58 @@ const Cats = () => {
         <DislikeBtn onClick={disLikeClickHandler}>싫어요</DislikeBtn>
       </BtnBox>
       {modalVisible && (
-        <div>
+        <ModalBox>
           {afterDislikeMessageObj[disLikeCount]}
+          <br></br>
           <button onClick={modalOkBtnHandler}>네</button>
           <button>아니오</button>
-        </div>
+        </ModalBox>
       )}
       {warningModalVisible && (
-        <div>
+        <ModalBox>
           {warningMessageObj[warningCount]}
           <button onClick={warningModalOkBtnHandler}>
-            흥! 난 그래도 고양이가 싫어
+            흥! 그래도 고양이가 싫어
           </button>
-        </div>
+        </ModalBox>
       )}
+      </Main>
     </>
   );
 };
 
+const Main = styled.div`
+  position : absolute;
+`
 
+const ModalBox = styled.div`
+  text-align : center;
+  width : 60%;
+  height : 10%;
+  position : fixed;
+  background-color : white;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  padding : 10%;
+  border-radius : 10px;
+`
 
+const LogoBox = styled.div`
+  height : 10vh;
+  width : 100%;
+  text-align : center;
+`
+
+const LogoImg = styled.img`
+  
+`
+// 7
 const CatsImgBox = styled.div`
-  margin-top : 15vh;
   text-align: center;
-  height : 40vh;
+  height : 60vh; 
   overflow : hidden;
   background-color : skyblue;
 `;
@@ -124,13 +156,29 @@ const BtnBox = styled.div`
 `;
 
 const LikeBtn = styled.button`
-  background-color : red;
-  border: none;
-  margin-right: 20px;
+position: relative;
+border: none;
+display: inline-block;
+padding: 15px 30px;
+border-radius: 10px;
+box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+text-decoration: none;
+font-weight: 600;
+transition: 0.25s;
+margin: 20px;
+background-color : yellow;
 `;
 
 const DislikeBtn = styled.button`
-  background-color : gray;
-  border: none;
+position: relative;
+border: none;
+display: inline-block;
+padding: 15px 30px;
+border-radius: 10px;
+box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+text-decoration: none;
+font-weight: 600;
+transition: 0.25s;
+margin: 20px;
 `;
 export default Cats;
