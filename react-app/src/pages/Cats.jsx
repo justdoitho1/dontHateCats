@@ -79,7 +79,10 @@ const Cats = () => {
     <>
       <Main>
         <LogoBox>
-          <h1>Don't Hate Cats</h1>
+          <h1>고양이 좋아하세요?</h1>
+          <h7>좋아요 버튼을 눌러보세요! </h7>
+          <br></br>
+          <h7> 끊임없이 고양이가 나온답니다!</h7>
           <LogoImg></LogoImg>
         </LogoBox>
         <CatsImgBox>
@@ -87,9 +90,9 @@ const Cats = () => {
         </CatsImgBox>
         <BtnBox>
           <LikeBtn backgroundColor={"yellow"} onClick={likeClickHandler}>
-            좋아요
+            완전 진짜 너무 좋아요
           </LikeBtn>
-          <LikeBtn onClick={disLikeClickHandler}>싫어요</LikeBtn>
+          <LikeBtn onClick={disLikeClickHandler}> 별로.. 싫어요...</LikeBtn>
         </BtnBox>
         {modalVisible && (
           <ModalBox>
@@ -121,10 +124,10 @@ const Main = styled.div`
 `;
 
 const ModalBox = styled.div`
-  text-align: center;
   width: 60%;
   height: 10%;
   position: fixed;
+  text-align: center;
   background-color: white;
   top: 0;
   bottom: 0;
@@ -133,20 +136,20 @@ const ModalBox = styled.div`
   margin: auto;
   padding: 10%;
   border-radius: 10px;
-  opacity : 80%;
 `;
 
 const LogoBox = styled.div`
-  height: 10vh;
+  height: 20vh;
   width: 100%;
   text-align: center;
 `;
+
 //이미지 할거면 추가
 const LogoImg = styled.img``;
 
 const CatsImgBox = styled.div`
+  height: 45vh;
   text-align: center;
-  height: 60vh;
   overflow: hidden;
   //background-color: skyblue;
 `;
@@ -171,7 +174,7 @@ const LikeBtn = styled.button`
   text-decoration: none;
   font-weight: 600;
   transition: 0.25s;
-  margin: 20px;
+  margin: 10px;
   background-color: ${(props) => props.backgroundColor};
 `;
 export default Cats;
