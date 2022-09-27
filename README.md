@@ -2,7 +2,7 @@
 
 <p align="center">
   <br>
-  <img src="#">
+  <img src="/react-app/img/main.jpg">
   <br>
 </p>
 
@@ -18,11 +18,11 @@
 
 ## 기술 스택
 
-<p align="justify">
-JavaScript
-React
-Styled-Components 
-</p>
+### JavaScript
+
+### React
+
+### Styled-Components
 
 <br>
 
